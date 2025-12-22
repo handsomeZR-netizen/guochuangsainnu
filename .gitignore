@@ -27,3 +27,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Generated files with sensitive data
+generated-images.json
+generate-product-images.js
+download-images.js
