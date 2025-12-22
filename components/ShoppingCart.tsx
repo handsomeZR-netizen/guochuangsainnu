@@ -49,7 +49,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end bg-black/30 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[10000] flex items-start justify-end bg-black/30 backdrop-blur-sm">
       <div className="bg-white h-full w-full max-w-md shadow-2xl flex flex-col animate-slide-in-right">
         {/* Header */}
         <div className="bg-blue-900 text-white p-6 flex justify-between items-center">

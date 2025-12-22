@@ -102,7 +102,7 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ onClose }) => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-50 overflow-y-auto">
+    <div className="fixed inset-0 z-[10000] bg-slate-50 overflow-y-auto">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white border-b border-slate-200 shadow-sm">
         <div className="container mx-auto px-6 py-4">
