@@ -70,10 +70,9 @@ const Globe3D: React.FC = () => {
     // --- Scene Setup ---
     const scene = new THREE.Scene();
     
-    // Camera
+    // Camera - 调整位置以更好地展示欧洲
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.z = 18;
-    camera.position.y = 5;
+    camera.position.set(0, 3, 18); // 稍微降低Y轴位置
     camera.lookAt(0, 0, 0);
 
     // Renderer - 优化性能
@@ -100,6 +99,10 @@ const Globe3D: React.FC = () => {
 
     // --- Globe Group ---
     const globeGroup = new THREE.Group();
+    // 初始旋转：让欧洲面向用户（欧洲在经度0-30度左右）
+    // Y轴旋转控制经度，X轴旋转控制纬度
+    globeGroup.rotation.y = -0.2; // 稍微向右旋转，让欧洲居中
+    globeGroup.rotation.x = 0.8;  // 向下倾斜，显示欧洲纬度
     scene.add(globeGroup);
 
     // 1. Earth Sphere
