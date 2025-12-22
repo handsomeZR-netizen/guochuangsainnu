@@ -13,11 +13,11 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section id={SectionId.HERO} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50">
+    <section id={SectionId.HERO} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50" style={{ zIndex: 'auto' }}>
       {/* Three.js Interactive Background */}
       <ThreeBackground />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto select-none pt-20 pb-10">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto select-none pt-20 pb-10 pointer-events-auto">
         <div className={`transition-all duration-1000 transform -mt-12 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <h2 className="text-blue-800 font-bold tracking-[0.3em] text-sm md:text-base mb-6 uppercase">
             南通蓝印花布 · 文化传承 · 全球活化

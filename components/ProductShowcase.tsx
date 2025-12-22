@@ -46,7 +46,7 @@ const ProductShowcase: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
-    <section id={SectionId.PRODUCTS} className="py-24 bg-slate-100">
+    <section id={SectionId.PRODUCTS} className="py-24 bg-slate-100" style={{ zIndex: 'auto' }}>
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">

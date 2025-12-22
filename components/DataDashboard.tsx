@@ -430,7 +430,7 @@ const LiveTransactionFeed = memo(() => {
 
 const DataDashboard: React.FC = () => {
   return (
-    <section id={SectionId.DASHBOARD} className="py-24 bg-white/50 backdrop-blur-sm relative z-10">
+    <section id={SectionId.DASHBOARD} className="py-24 bg-white/50 backdrop-blur-sm relative" style={{ zIndex: 'auto' }}>
       <div className="container mx-auto px-6">
         <div className="mb-16 text-center">
           <span className="text-blue-800 font-bold tracking-widest text-xs uppercase mb-2 block opacity-70">
