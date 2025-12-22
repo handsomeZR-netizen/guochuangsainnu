@@ -13,12 +13,12 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section id={SectionId.HERO} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50" style={{ zIndex: 'auto' }}>
+    <section id={SectionId.HERO} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 pt-20 sm:pt-24" style={{ zIndex: 'auto' }}>
       {/* Three.js Interactive Background */}
       <ThreeBackground />
 
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto select-none pt-16 sm:pt-20 pb-10 pointer-events-auto">
-        <div className={`transition-all duration-1000 transform -mt-8 sm:-mt-12 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto select-none pb-10 pointer-events-auto">
+        <div className={`transition-all duration-1000 transform ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <h2 className="text-blue-800 font-bold tracking-[0.15em] sm:tracking-[0.3em] text-xs sm:text-sm md:text-base mb-4 sm:mb-6 uppercase px-2">
             南通蓝印花布 · 文化传承 · 全球活化
           </h2>

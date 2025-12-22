@@ -225,32 +225,30 @@ body::after {
 /* Smooth scroll with offset for fixed navbar */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 100px;
 }
 
 /* Ensure sections have proper spacing from fixed navbar */
 section[id] {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 100px;
 }
 
 /* Hero section specific adjustments */
 #hero {
   min-height: 100vh;
-  padding-top: 80px;
 }
 
 /* Prevent navbar overlap on mobile */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 64px;
+    scroll-padding-top: 80px;
   }
   
   section[id] {
-    scroll-margin-top: 64px;
+    scroll-margin-top: 80px;
   }
   
   #hero {
-    padding-top: 64px;
     min-height: 100svh; /* Use small viewport height for mobile */
   }
 }
