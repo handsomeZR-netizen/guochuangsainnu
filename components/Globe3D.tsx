@@ -99,10 +99,11 @@ const Globe3D: React.FC = () => {
 
     // --- Globe Group ---
     const globeGroup = new THREE.Group();
-    // 初始旋转：让欧洲面向用户（欧洲在经度0-30度左右）
-    // Y轴旋转控制经度，X轴旋转控制纬度
-    globeGroup.rotation.y = -0.2; // 稍微向右旋转，让欧洲居中
-    globeGroup.rotation.x = 0.8;  // 向下倾斜，显示欧洲纬度
+    // 初始旋转：让欧洲面向用户
+    // 欧洲经度约0-40度，中国约100-120度，需要向左旋转约100度
+    // Y轴旋转控制经度（正值向左转），X轴旋转控制纬度
+    globeGroup.rotation.y = Math.PI * 0.55; // 向左旋转约100度，让欧洲居中
+    globeGroup.rotation.x = 0.2;  // 轻微向下倾斜，显示欧洲纬度（40-60度）
     scene.add(globeGroup);
 
     // 1. Earth Sphere
