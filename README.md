@@ -357,3 +357,75 @@ await doubaoService.generatePatternImage(
 Made with ❤️ by 墨韵智汇团队
 
 </div>
+
+
+## 🔧 故障排查
+
+### Netlify 部署 500 错误
+
+如果在 Netlify 上遇到 500 错误，请按以下步骤排查：
+
+#### 1. 确认错误来源
+
+打开浏览器 DevTools → Network，查看失败请求的 Response Headers：
+- 如果有 `x-nf-request-id`：错误来自 Netlify Functions
+- 如果没有：错误来自火山引擎 API
+
+#### 2. 检查环境变量（最常见原因）
+
+Netlify Dashboard → Site settings → Environment variables
+
+确保已添加：
+```
+Key: VITE_ARK_API_KEY
+Value: 你的火山引擎API密钥
+Scopes: Functions (必须勾选)
+```
+
+⚠️ **重要**：修改环境变量后必须重新部署！
+
+#### 3. 查看 Function 日志
+
+Netlify Dashboard → Functions → deepseek-proxy → Recent invocations
+
+期望看到：
+```
+✅ API Key found, calling DeepSeek API...
+DeepSeek API response status: 200
+```
+
+如果看到：
+```
+❌ VITE_ARK_API_KEY not found in environment variables
+```
+→ 环境变量未配置或未生效，需要重新部署
+
+#### 4. 本地测试（可选）
+
+```bash
+# 设置环境变量
+export VITE_ARK_API_KEY=你的密钥
+
+# 运行测试脚本
+node test-netlify-function.js
+```
+
+#### 详细排查指南
+
+查看以下文档获取完整的排查步骤：
+- 📖 [NETLIFY_500_DEBUG_GUIDE.md](./NETLIFY_500_DEBUG_GUIDE.md) - 详细的错误诊断流程
+- ✅ [NETLIFY_DEPLOYMENT_CHECKLIST.md](./NETLIFY_DEPLOYMENT_CHECKLIST.md) - 部署检查清单
+
+### 常见问题
+
+#### Q: 本地开发正常，部署后 500？
+A: 本地使用 Vite proxy，生产环境使用 Netlify Functions。检查环境变量是否配置。
+
+#### Q: 流式响应卡住或超时？
+A: Netlify Functions 有 10 秒超时。可以临时禁用流式（`stream: false`）或优化 prompt。
+
+#### Q: CORS 错误？
+A: 已在 Functions 中添加 CORS 处理。确保部署了最新代码。
+
+#### Q: 火山引擎返回 500？
+A: 检查 Response Body 中的 `errID`/`logID`，联系火山引擎技术支持。
