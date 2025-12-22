@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag, User, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Menu, X, ShoppingBag, User, Info, Store } from 'lucide-react';
 import { SectionId } from '../types';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -67,6 +68,13 @@ const Navbar: React.FC = () => {
           >
             关于我们
           </button>
+          <Link 
+            to="/shop"
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1"
+          >
+            <Store size={16} />
+            购物中心
+          </Link>
           {[
             { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
             { id: SectionId.PRODUCTS, label: t('nav.products') },
@@ -128,16 +136,24 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-slate-50 border-t border-slate-200 py-4 px-6 flex flex-col gap-4 shadow-lg">
+        <div className="md:hidden absolute top-full left-0 w-full bg-slate-50 border-t border-slate-200 py-4 px-4 flex flex-col gap-2 shadow-lg max-h-[calc(100vh-70px)] overflow-y-auto">
           <button 
             onClick={() => {
               setIsAboutOpen(true);
               setIsMenuOpen(false);
             }}
-            className="text-left text-slate-600 hover:text-[#1e3a8a] py-2 font-serif font-bold"
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors"
           >
             关于我们
           </button>
+          <Link 
+            to="/shop"
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold flex items-center gap-2 rounded-lg transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <Store size={16} />
+            购物中心
+          </Link>
           {[
             { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
             { id: SectionId.PRODUCTS, label: t('nav.products') },
@@ -146,20 +162,49 @@ const Navbar: React.FC = () => {
             <button 
               key={item.id} 
               onClick={() => scrollTo(item.id)}
-              className="text-left text-slate-600 hover:text-[#1e3a8a] py-2 font-serif font-bold"
+              className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors"
             >
               {item.label}
             </button>
           ))}
-          <div className="pt-2 border-t border-slate-200 space-y-3">
-            <LanguageSwitcher />
-            {!isLoggedIn && (
+          <div className="pt-3 mt-2 border-t border-slate-200 space-y-3">
+            <div className="flex items-center justify-between px-3">
+              <span className="text-sm text-slate-500">语言</span>
+              <LanguageSwitcher />
+            </div>
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="w-full flex items-center justify-between px-3 py-3 text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 rounded-lg transition-colors"
+            >
+              <span className="font-bold">购物车</span>
+              <div className="relative">
+                <ShoppingBag size={20} />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#3b82f6] rounded-full"></span>
+              </div>
+            </button>
+            {isLoggedIn ? (
+              <div className="px-3 py-2 bg-slate-100 rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <User size={18} className="text-slate-600" />
+                  <span className="font-bold text-slate-800">{username}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button className="flex-1 text-sm py-2 bg-white rounded text-slate-600 hover:bg-slate-50">个人中心</button>
+                  <button 
+                    onClick={handleLogout}
+                    className="flex-1 text-sm py-2 bg-red-50 rounded text-red-600 hover:bg-red-100"
+                  >
+                    退出
+                  </button>
+                </div>
+              </div>
+            ) : (
               <button 
                 onClick={() => {
                   setIsLoginOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="w-full bg-[#1e3a8a] text-white py-2 rounded-lg font-bold"
+                className="w-full bg-[#1e3a8a] text-white py-3 rounded-lg font-bold active:bg-[#1e40af] transition-colors"
               >
                 登录
               </button>

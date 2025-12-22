@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { X, Trash2, Plus, Minus } from 'lucide-react';
 
 interface CartItem {
@@ -48,9 +49,10 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end bg-black/30 backdrop-blur-sm">
-      <div className="bg-white h-full w-full max-w-md shadow-2xl flex flex-col animate-slide-in-right">
+  return createPortal(
+    <div className="fixed inset-0 flex items-start justify-end" style={{ zIndex: 99999 }}>
+      <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-white h-full w-full max-w-md shadow-2xl flex flex-col animate-slide-in-right">
         {/* Header */}
         <div className="bg-blue-900 text-white p-6 flex justify-between items-center">
           <h2 className="text-2xl font-bold">购物车</h2>
@@ -126,7 +128,8 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

@@ -46,22 +46,22 @@ const ProductShowcase: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   return (
-    <section id={SectionId.PRODUCTS} className="py-24 bg-slate-100" style={{ zIndex: 'auto' }}>
-      <div className="container mx-auto px-6">
+    <section id={SectionId.PRODUCTS} className="py-16 sm:py-24 bg-slate-100" style={{ zIndex: 'auto' }}>
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 sm:mb-16 gap-4 sm:gap-6">
           <div>
-            <span className="text-blue-700 font-bold tracking-widest text-xs uppercase mb-3 block">
+            <span className="text-blue-700 font-bold tracking-widest text-xs uppercase mb-2 sm:mb-3 block">
               Product Showcase
             </span>
-            <h2 className="text-4xl md:text-5xl text-slate-900 font-bold font-serif">产品展示</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl text-slate-900 font-bold font-serif">产品展示</h2>
           </div>
           <div className="w-full md:w-auto">
             <div className="relative">
               <input
                 type="text"
                 placeholder="搜索非遗工艺..."
-                className="bg-white border border-slate-300 rounded-lg py-3 px-4 pr-12 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 w-full md:w-72 text-slate-800 placeholder-slate-400 transition-all"
+                className="bg-white border border-slate-300 rounded-lg py-3 px-4 pr-12 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 w-full md:w-72 text-slate-800 placeholder-slate-400 transition-all text-base"
               />
               <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
             </div>
@@ -69,7 +69,7 @@ const ProductShowcase: React.FC = () => {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
           {products.map((product) => (
             <div
               key={product.id}
@@ -125,14 +125,14 @@ const ProductShowcase: React.FC = () => {
                 </div>
 
                 {/* Info Area */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 font-serif mb-1 group-hover:text-blue-800 transition-colors">
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-serif mb-1 group-hover:text-blue-800 transition-colors">
                     {product.name}
                   </h3>
-                  <p className="text-sm text-slate-500 italic mb-3">{product.nameEn}</p>
-                  <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold text-blue-900">
-                      <span className="text-sm font-normal text-slate-500 mr-1">{product.currency}</span>
+                  <p className="text-xs sm:text-sm text-slate-500 italic mb-2 sm:mb-3">{product.nameEn}</p>
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <p className="text-xl sm:text-2xl font-bold text-blue-900">
+                      <span className="text-xs sm:text-sm font-normal text-slate-500 mr-1">{product.currency}</span>
                       {product.price.toLocaleString()}
                     </p>
                     <div className="flex gap-1">

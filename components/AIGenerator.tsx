@@ -487,70 +487,70 @@ const AIGenerator: React.FC = () => {
   };
 
   return (
-    <section id={SectionId.AIGC} className="py-24 bg-white">
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex flex-col items-center text-center mb-16">
+    <section id={SectionId.AIGC} className="py-16 sm:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
+        <div className="flex flex-col items-center text-center mb-10 sm:mb-16">
           <span className="text-blue-700 font-bold tracking-widest text-xs uppercase mb-2">AI 双模型工坊</span>
-          <h2 className="text-4xl text-slate-900 font-bold mb-4 font-serif">灵感工坊 · 智能定制</h2>
-          <p className="text-slate-600 max-w-2xl">
+          <h2 className="text-3xl sm:text-4xl text-slate-900 font-bold mb-3 sm:mb-4 font-serif">灵感工坊 · 智能定制</h2>
+          <p className="text-slate-600 max-w-2xl text-sm sm:text-base px-2">
             基于DeepSeek-V3文化解读与Doubao-Seedream视觉生成，为您提供专业的蓝印花布定制体验。
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 h-[700px]">
+        <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 min-h-[600px] lg:h-[700px]">
           {/* Sidebar / Mode Selection */}
-          <div className="w-full md:w-1/4 flex flex-col gap-2">
+          <div className="w-full lg:w-1/4 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
             <button 
               onClick={() => { setActiveMode('pattern-explanation'); setError(null); setResult(null); setStreamingText(''); }}
-              className={`p-6 text-left border transition-all duration-300 ${
+              className={`flex-shrink-0 lg:flex-shrink p-4 sm:p-6 text-left border transition-all duration-300 min-w-[140px] lg:min-w-0 ${
                 activeMode === 'pattern-explanation' 
                   ? 'bg-blue-800 text-white border-blue-800' 
                   : 'bg-transparent text-slate-500 border-slate-200 hover:border-slate-400'
               }`}
             >
-              <MessageSquare className="mb-4" size={24} />
-              <h3 className="font-bold text-lg mb-1 font-serif">纹样解读</h3>
-              <p className="text-xs opacity-70">DeepSeek文化解析</p>
+              <MessageSquare className="mb-2 sm:mb-4" size={20} />
+              <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 font-serif">纹样解读</h3>
+              <p className="text-xs opacity-70 hidden sm:block">DeepSeek文化解析</p>
             </button>
             
             <button 
               onClick={() => { setActiveMode('image-generation'); setError(null); setResult(null); setStreamingText(''); }}
-              className={`p-6 text-left border transition-all duration-300 ${
+              className={`flex-shrink-0 lg:flex-shrink p-4 sm:p-6 text-left border transition-all duration-300 min-w-[140px] lg:min-w-0 ${
                 activeMode === 'image-generation' 
                   ? 'bg-blue-800 text-white border-blue-800' 
                   : 'bg-transparent text-slate-500 border-slate-200 hover:border-slate-400'
               }`}
             >
-              <ImageIcon className="mb-4" size={24} />
-              <h3 className="font-bold text-lg mb-1 font-serif">效果图生成</h3>
-              <p className="text-xs opacity-70">Doubao视觉创作</p>
+              <ImageIcon className="mb-2 sm:mb-4" size={20} />
+              <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 font-serif">效果图生成</h3>
+              <p className="text-xs opacity-70 hidden sm:block">Doubao视觉创作</p>
             </button>
             
             <button 
               onClick={() => { setActiveMode('room-analysis'); setError(null); setResult(null); setStreamingText(''); }}
-              className={`p-6 text-left border transition-all duration-300 ${
+              className={`flex-shrink-0 lg:flex-shrink p-4 sm:p-6 text-left border transition-all duration-300 min-w-[140px] lg:min-w-0 ${
                 activeMode === 'room-analysis' 
                   ? 'bg-blue-800 text-white border-blue-800' 
                   : 'bg-transparent text-slate-500 border-slate-200 hover:border-slate-400'
               }`}
             >
-              <Home className="mb-4" size={24} />
-              <h3 className="font-bold text-lg mb-1 font-serif">房间分析</h3>
-              <p className="text-xs opacity-70">双模型智能推荐</p>
+              <Home className="mb-2 sm:mb-4" size={20} />
+              <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 font-serif">房间分析</h3>
+              <p className="text-xs opacity-70 hidden sm:block">双模型智能推荐</p>
             </button>
           </div>
 
           {/* Content Area */}
-          <div className="w-full md:w-3/4 bg-slate-50 border border-slate-200 p-8 relative flex flex-col overflow-hidden">
+          <div className="w-full lg:w-3/4 bg-slate-50 border border-slate-200 p-4 sm:p-8 relative flex flex-col overflow-hidden flex-1">
             {/* History Toggle Button */}
-            <div className="absolute top-4 right-4 z-10">
+            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-10">
               <button
                 onClick={() => setShowHistory(!showHistory)}
-                className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-800 transition-colors text-sm"
+                className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white border border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-800 transition-colors text-xs sm:text-sm"
               >
-                <History size={16} />
-                <span>历史记录</span>
-                {showHistory ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                <History size={14} />
+                <span className="hidden sm:inline">历史记录</span>
+                {showHistory ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
               </button>
             </div>
 

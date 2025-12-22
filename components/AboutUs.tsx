@@ -40,20 +40,20 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, icon, children, is
   <div className="border border-slate-200 rounded-lg overflow-hidden bg-white shadow-sm">
     <button
       onClick={onToggle}
-      className="w-full flex items-center justify-between p-4 hover:bg-slate-50 transition-colors text-left"
+      className="w-full flex items-center justify-between p-3 sm:p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left"
     >
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-700">
+      <div className="flex items-center gap-2 sm:gap-3">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-50 rounded-lg flex items-center justify-center text-blue-700">
           {icon}
         </div>
-        <span className="font-semibold text-slate-900">{title}</span>
+        <span className="font-semibold text-slate-900 text-sm sm:text-base">{title}</span>
       </div>
       <div className="text-slate-400">
-        {isOpen ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
+        {isOpen ? <ChevronDown size={18} /> : <ChevronRight size={18} />}
       </div>
     </button>
     <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-      <div className="p-4 pt-0 border-t border-slate-100">
+      <div className="p-3 sm:p-4 pt-0 border-t border-slate-100">
         {children}
       </div>
     </div>
@@ -70,41 +70,41 @@ interface TeamMemberCardProps {
 }
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ name, role, school, major, achievements, skills }) => (
-  <div className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-xl p-5 hover:shadow-md transition-shadow">
-    <div className="flex items-start gap-4 mb-4">
-      <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0">
+  <div className="bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-lg sm:rounded-xl p-4 sm:p-5 hover:shadow-md transition-shadow">
+    <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shrink-0">
         {name.charAt(0)}
       </div>
       <div className="min-w-0">
-        <h4 className="font-bold text-slate-900 text-lg">{name}</h4>
+        <h4 className="font-bold text-slate-900 text-base sm:text-lg">{name}</h4>
         <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-medium rounded-full mt-1">
-          <Briefcase size={12} />
+          <Briefcase size={10} />
           {role}
         </span>
       </div>
     </div>
     
-    <div className="space-y-3 text-sm">
+    <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
       <div className="flex items-start gap-2">
-        <GraduationCap size={16} className="text-slate-400 mt-0.5 shrink-0" />
+        <GraduationCap size={14} className="text-slate-400 mt-0.5 shrink-0" />
         <div>
           <p className="text-slate-700">{school}</p>
-          <p className="text-slate-500">{major}</p>
+          <p className="text-slate-500 text-xs">{major}</p>
         </div>
       </div>
       
       <div className="flex items-start gap-2">
-        <Award size={16} className="text-amber-500 mt-0.5 shrink-0" />
+        <Award size={14} className="text-amber-500 mt-0.5 shrink-0" />
         <div className="space-y-1">
-          {achievements.slice(0, 3).map((achievement, idx) => (
-            <p key={idx} className="text-slate-600 text-xs leading-relaxed">{achievement}</p>
+          {achievements.slice(0, 2).map((achievement, idx) => (
+            <p key={idx} className="text-slate-600 text-xs leading-relaxed line-clamp-2">{achievement}</p>
           ))}
         </div>
       </div>
       
-      <div className="flex flex-wrap gap-1.5 pt-2">
-        {skills.map((skill, idx) => (
-          <span key={idx} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded">
+      <div className="flex flex-wrap gap-1 sm:gap-1.5 pt-1 sm:pt-2">
+        {skills.slice(0, 3).map((skill, idx) => (
+          <span key={idx} className="px-1.5 sm:px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded">
             {skill}
           </span>
         ))}
@@ -214,41 +214,41 @@ const AboutUs: React.FC<AboutUsProps> = ({ isOpen, onClose }) => {
       />
 
       {/* 模态框 */}
-      <div className="relative min-h-screen flex items-center justify-center p-4">
-        <div className="relative bg-slate-50 rounded-2xl shadow-2xl w-full max-w-5xl max-h-[85vh] overflow-hidden flex flex-col my-8">
+      <div className="relative min-h-screen flex items-start sm:items-center justify-center p-2 sm:p-4">
+        <div className="relative bg-slate-50 rounded-xl sm:rounded-2xl shadow-2xl w-full max-w-5xl max-h-[95vh] sm:max-h-[85vh] overflow-hidden flex flex-col my-2 sm:my-8">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white p-6 flex justify-between items-center shrink-0">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                <Building2 size={24} />
+          <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white p-4 sm:p-6 flex justify-between items-center shrink-0">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-lg sm:rounded-xl flex items-center justify-center">
+                <Building2 size={20} />
               </div>
               <div>
-                <h2 className="text-2xl font-bold">关于我们</h2>
-                <p className="text-blue-200 text-sm">青蓝出海 · 南通蓝印花布跨境电商项目</p>
+                <h2 className="text-xl sm:text-2xl font-bold">关于我们</h2>
+                <p className="text-blue-200 text-xs sm:text-sm">青蓝出海 · 南通蓝印花布跨境电商项目</p>
               </div>
             </div>
             <button 
               onClick={onClose}
-              className="hover:bg-white/20 p-2 rounded-full transition-colors"
+              className="hover:bg-white/20 active:bg-white/30 p-2 rounded-full transition-colors"
             >
               <X size={24} />
             </button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3 sm:space-y-4">
             {/* 项目名称释义 */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-xl p-5">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 shrink-0">
-                  <Sparkles size={20} />
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-lg sm:rounded-xl p-4 sm:p-5">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-700 shrink-0">
+                  <Sparkles size={18} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 mb-2">项目名称释义</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <h3 className="font-semibold text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">项目名称释义</h3>
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                     "青蓝出海"象征着我们期望青出于蓝，致力于在传统蓝印花布的基础上不断创新，使其突破地域限制，从南通走向世界舞台。
-                    "青"字蕴含双重意蕴：一方面代表蓝印花布中如晴空般深邃、凝重的青色，承载着传统技艺的独特魅力；
-                    另一方面象征着新时代的大学生青年，充满创造力与活力，正以崭新的姿态投身于传承与创新之中。
+                    <span className="hidden sm:inline">"青"字蕴含双重意蕴：一方面代表蓝印花布中如晴空般深邃、凝重的青色，承载着传统技艺的独特魅力；
+                    另一方面象征着新时代的大学生青年，充满创造力与活力，正以崭新的姿态投身于传承与创新之中。</span>
                   </p>
                 </div>
               </div>
@@ -294,39 +294,36 @@ const AboutUs: React.FC<AboutUsProps> = ({ isOpen, onClose }) => {
 
             <AccordionItem
               title="团队优势与能力"
-              icon={<TrendingUp size={20} />}
+              icon={<TrendingUp size={18} />}
               isOpen={openSections.has('advantages')}
               onToggle={() => toggleSection('advantages')}
             >
-              <div className="grid md:grid-cols-3 gap-4 pt-2">
-                <div className="bg-white border border-slate-200 rounded-xl p-4">
-                  <div className="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600 mb-3">
-                    <Lightbulb size={20} />
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 pt-2">
+                <div className="bg-white border border-slate-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-50 rounded-lg flex items-center justify-center text-purple-600 mb-2 sm:mb-3">
+                    <Lightbulb size={18} />
                   </div>
-                  <h4 className="font-semibold text-slate-900 mb-2">专业互补</h4>
-                  <p className="text-sm text-slate-600">
-                    团队成员专业背景涵盖多个学科领域，能够从不同视角为项目提供全面的解决方案，
-                    在战略规划、财务管理、文化传播、市场营销和技术研发等方面协同合作。
+                  <h4 className="font-semibold text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">专业互补</h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    团队成员专业背景涵盖多个学科领域，能够从不同视角为项目提供全面的解决方案。
                   </p>
                 </div>
-                <div className="bg-white border border-slate-200 rounded-xl p-4">
-                  <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center text-green-600 mb-3">
-                    <Award size={20} />
+                <div className="bg-white border border-slate-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-50 rounded-lg flex items-center justify-center text-green-600 mb-2 sm:mb-3">
+                    <Award size={18} />
                   </div>
-                  <h4 className="font-semibold text-slate-900 mb-2">实践经验</h4>
-                  <p className="text-sm text-slate-600">
-                    团队成员在各自领域积累了丰富的实践经验，参与过多个相关项目和竞赛，
-                    具备敏锐的市场洞察力、高效的问题解决能力和出色的执行能力。
+                  <h4 className="font-semibold text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">实践经验</h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    团队成员在各自领域积累了丰富的实践经验，参与过多个相关项目和竞赛。
                   </p>
                 </div>
-                <div className="bg-white border border-slate-200 rounded-xl p-4">
-                  <div className="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600 mb-3">
-                    <Star size={20} />
+                <div className="bg-white border border-slate-200 rounded-lg sm:rounded-xl p-3 sm:p-4 sm:col-span-2 md:col-span-1">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600 mb-2 sm:mb-3">
+                    <Star size={18} />
                   </div>
-                  <h4 className="font-semibold text-slate-900 mb-2">创新精神</h4>
-                  <p className="text-sm text-slate-600">
-                    团队成员具有强烈的创新意识和创业精神，勇于尝试新技术、新模式和新方法，
-                    将区块链溯源、数字化服务平台、柔性供应链管理等前沿技术融入项目。
+                  <h4 className="font-semibold text-slate-900 mb-1 sm:mb-2 text-sm sm:text-base">创新精神</h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    团队成员具有强烈的创新意识和创业精神，勇于尝试新技术、新模式和新方法。
                   </p>
                 </div>
               </div>
@@ -450,48 +447,48 @@ const AboutUs: React.FC<AboutUsProps> = ({ isOpen, onClose }) => {
 
             <AccordionItem
               title="项目成果与媒体报道"
-              icon={<Newspaper size={20} />}
+              icon={<Newspaper size={18} />}
               isOpen={openSections.has('achievements')}
               onToggle={() => toggleSection('achievements')}
             >
-              <div className="space-y-4 pt-2">
-                <p className="text-sm text-slate-600 leading-relaxed">
+              <div className="space-y-3 sm:space-y-4 pt-2">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   团队成员实地走访南通蓝印花布博物馆、颐高跨境电商产业园等十余家企业和银行，
                   全链路深入了解蓝印花布工艺及产品生产、运输、销售环节。
                 </p>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
-                    <p className="text-3xl font-bold text-blue-900">10+</p>
-                    <p className="text-sm text-slate-600 mt-1">实地走访企业</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-blue-900">10+</p>
+                    <p className="text-xs text-slate-600 mt-0.5 sm:mt-1">实地走访企业</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
-                    <p className="text-3xl font-bold text-green-900">20+</p>
-                    <p className="text-sm text-slate-600 mt-1">主流媒体报道</p>
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-green-900">20+</p>
+                    <p className="text-xs text-slate-600 mt-0.5 sm:mt-1">主流媒体报道</p>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4 text-center">
-                    <p className="text-3xl font-bold text-purple-900">1000+</p>
-                    <p className="text-sm text-slate-600 mt-1">公众号浏览量</p>
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-purple-900">1000+</p>
+                    <p className="text-xs text-slate-600 mt-0.5 sm:mt-1">公众号浏览量</p>
                   </div>
-                  <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-4 text-center">
-                    <p className="text-3xl font-bold text-amber-900">多家</p>
-                    <p className="text-sm text-slate-600 mt-1">企业良好反馈</p>
+                  <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center">
+                    <p className="text-2xl sm:text-3xl font-bold text-amber-900">多家</p>
+                    <p className="text-xs text-slate-600 mt-0.5 sm:mt-1">企业良好反馈</p>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full border border-red-100">中国网</span>
-                  <span className="px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full border border-red-100">人民日报</span>
-                  <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full">国家级媒体</span>
-                  <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full">省市级媒体</span>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                  <span className="px-2 sm:px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full border border-red-100">中国网</span>
+                  <span className="px-2 sm:px-3 py-1 bg-red-50 text-red-700 text-xs rounded-full border border-red-100">人民日报</span>
+                  <span className="px-2 sm:px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full">国家级媒体</span>
+                  <span className="px-2 sm:px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full">省市级媒体</span>
                 </div>
               </div>
             </AccordionItem>
           </div>
 
           {/* Footer */}
-          <div className="bg-white border-t border-slate-200 p-4 flex justify-end shrink-0">
+          <div className="bg-white border-t border-slate-200 p-3 sm:p-4 flex justify-end shrink-0">
             <button
               onClick={onClose}
-              className="px-6 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-lg transition-colors text-sm font-medium"
+              className="px-5 sm:px-6 py-2 bg-blue-900 hover:bg-blue-800 active:bg-blue-950 text-white rounded-lg transition-colors text-sm font-medium"
             >
               关闭
             </button>

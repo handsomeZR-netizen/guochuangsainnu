@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, memo, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 import { LanguageSuggestion } from './components/LanguageSuggestion';
+import ShopPage from './components/ShopPage';
 
 // 懒加载重型组件
 const DataDashboard = lazy(() => import('./components/DataDashboard'));
@@ -142,14 +144,13 @@ const LoadingFallback: React.FC<{ height?: string }> = ({ height = 'h-96' }) => 
   </div>
 );
 
-function App() {
-  // 使用 Canvas 实现水墨跟随效果
+// 首页组件
+const HomePage: React.FC = () => {
   useInkTrailCanvas();
-
+  
   return (
     <div className="min-h-screen flex flex-col relative">
       <LanguageSuggestion />
-      <MemoizedNavbar />
       <main className="flex-grow">
         <MemoizedHero />
         <Suspense fallback={<LoadingFallback height="h-screen" />}>
@@ -164,6 +165,18 @@ function App() {
       </main>
       <MemoizedFooter />
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <MemoizedNavbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+      </Routes>
+    </Router>
   );
 }
 

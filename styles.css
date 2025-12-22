@@ -179,7 +179,46 @@ body::after {
 @media (max-width: 768px) {
   .h-\[700px\] {
     height: auto;
-    min-height: 600px;
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .h-\[700px\] {
+    height: auto;
+    min-height: 450px;
+  }
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Larger touch targets on mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Mobile-specific scrolling */
+@media (max-width: 768px) {
+  .overflow-y-auto {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Hide scrollbar on mobile for horizontal scroll areas */
+@media (max-width: 1024px) {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -203,15 +242,27 @@ section[id] {
 /* Prevent navbar overlap on mobile */
 @media (max-width: 768px) {
   html {
-    scroll-padding-top: 70px;
+    scroll-padding-top: 64px;
   }
   
   section[id] {
-    scroll-margin-top: 70px;
+    scroll-margin-top: 64px;
   }
   
   #hero {
-    padding-top: 70px;
+    padding-top: 64px;
+    min-height: 100svh; /* Use small viewport height for mobile */
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-inset-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  
+  .safe-area-inset-top {
+    padding-top: max(0px, env(safe-area-inset-top));
   }
 }
 
