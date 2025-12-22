@@ -37,12 +37,19 @@ export type StreamCallback = (chunk: string, done: boolean) => void;
 
 export class DeepSeekService {
   private apiKey: string;
-  private baseURL: string = 'https://ark.cn-beijing.volces.com/api/v3';
+  private baseURL: string;
   private maxRetries: number = 3;
 
   constructor(apiKey?: string) {
     this.apiKey = apiKey || (typeof import.meta !== 'undefined' ? import.meta.env?.VITE_ARK_API_KEY : '') || '';
-    if (!this.apiKey) {
+    
+    // 在生产环境使用 Netlify Functions 代理
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+    this.baseURL = isProduction 
+      ? '/.netlify/functions'
+      : 'https://ark.cn-beijing.volces.com/api/v3';
+    
+    if (!this.apiKey && !isProduction) {
       console.warn('DeepSeek API key not configured. Please set VITE_ARK_API_KEY in .env file.');
     }
   }
@@ -170,20 +177,28 @@ export class DeepSeekService {
     userContent: string,
     onChunk: StreamCallback
   ): Promise<string> {
-    if (!this.apiKey) {
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+    
+    if (!this.apiKey && !isProduction) {
       throw new DeepSeekError('INVALID_KEY', 'API密钥未配置', false);
     }
 
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 60000); // 60秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
 
-      const response = await fetch(`${this.baseURL}/chat/completions`, {
+      const endpoint = isProduction ? `${this.baseURL}/deepseek-proxy` : `${this.baseURL}/chat/completions`;
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      
+      if (!isProduction) {
+        headers['Authorization'] = `Bearer ${this.apiKey}`;
+      }
+
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`
-        },
+        headers,
         body: JSON.stringify({
           model: 'deepseek-v3-2-251201',
           messages: [
@@ -264,7 +279,9 @@ export class DeepSeekService {
     systemContent: string,
     userContent: string
   ): Promise<string> {
-    if (!this.apiKey) {
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+    
+    if (!this.apiKey && !isProduction) {
       throw new DeepSeekError('INVALID_KEY', 'API密钥未配置', false);
     }
 
@@ -275,12 +292,18 @@ export class DeepSeekService {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-        const response = await fetch(`${this.baseURL}/chat/completions`, {
+        const endpoint = isProduction ? `${this.baseURL}/deepseek-proxy` : `${this.baseURL}/chat/completions`;
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json'
+        };
+        
+        if (!isProduction) {
+          headers['Authorization'] = `Bearer ${this.apiKey}`;
+        }
+
+        const response = await fetch(endpoint, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.apiKey}`
-          },
+          headers,
           body: JSON.stringify({
             model: 'deepseek-v3-2-251201',
             messages: [

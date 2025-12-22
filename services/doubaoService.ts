@@ -23,12 +23,18 @@ export interface ImageGenerationOptions {
 
 export class DoubaoService {
   private apiKey: string;
-  private baseURL: string = 'https://ark.cn-beijing.volces.com/api/v3';
+  private baseURL: string;
 
   constructor(apiKey?: string) {
-    // Vite 环境变量需要使用 import.meta.env.VITE_* 格式
     this.apiKey = apiKey || (typeof import.meta !== 'undefined' ? import.meta.env?.VITE_ARK_API_KEY : '') || '';
-    if (!this.apiKey) {
+    
+    // 在生产环境使用 Netlify Functions 代理
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+    this.baseURL = isProduction 
+      ? '/.netlify/functions'
+      : 'https://ark.cn-beijing.volces.com/api/v3';
+    
+    if (!this.apiKey && !isProduction) {
       console.warn('Doubao API key not configured. Please set VITE_ARK_API_KEY in .env file.');
     }
   }
@@ -43,19 +49,27 @@ export class DoubaoService {
     patternName: string,
     options: ImageGenerationOptions = {}
   ): Promise<string> {
-    if (!this.apiKey) {
+    const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+    
+    if (!this.apiKey && !isProduction) {
       throw new DoubaoError('INVALID_PROMPT', 'API密钥未配置');
     }
 
     const prompt = this.buildPrompt(patternName, options);
 
     try {
-      const response = await fetch(`${this.baseURL}/images/generations`, {
+      const endpoint = isProduction ? `${this.baseURL}/doubao-proxy` : `${this.baseURL}/images/generations`;
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      
+      if (!isProduction) {
+        headers['Authorization'] = `Bearer ${this.apiKey}`;
+      }
+
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`
-        },
+        headers,
         body: JSON.stringify({
           model: 'doubao-seedream-4-5-251128',
           prompt: prompt,

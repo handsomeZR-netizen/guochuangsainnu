@@ -7,6 +7,9 @@
   # 构建输出目录
   publish = "dist"
   
+  # Functions 目录
+  functions = "netlify/functions"
+  
   # Node.js 版本
   [build.environment]
     NODE_VERSION = "18"
