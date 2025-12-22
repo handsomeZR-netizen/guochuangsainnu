@@ -3,7 +3,7 @@ import { Menu, X, ShoppingBag, User, Info } from 'lucide-react';
 import { SectionId } from '../types';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import AboutUs from './AboutUs';
+import AboutUsPage from './AboutUsPage';
 import ShoppingCart from './ShoppingCart';
 import Login from './Login';
 
@@ -169,7 +169,7 @@ const Navbar: React.FC = () => {
       )}
 
       {/* Modals */}
-      <AboutUs isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+      {isAboutOpen && <AboutUsPage onClose={() => setIsAboutOpen(false)} />}
       <ShoppingCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={handleLogin} />
     </nav>
