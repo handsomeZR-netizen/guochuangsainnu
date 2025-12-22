@@ -14,34 +14,44 @@ export const latLonToVector3 = (lat: number, lon: number, radius: number): THREE
 // 南通坐标常量
 export const NANTONG_COORDS = { lat: 31.23, lon: 121.47 } as const;
 
-// 导出城市坐标配置用于测试
+// 导出城市坐标配置用于测试 - 聚焦欧洲和东南亚市场
 export const getCityCoordinates = (radius: number = 5) => ({
   nantong: latLonToVector3(NANTONG_COORDS.lat, NANTONG_COORDS.lon, radius), // 南通 - 蓝印花布发源地
-  beijing: latLonToVector3(39.90, 116.40, radius),
-  london: latLonToVector3(51.50, -0.12, radius),
-  ny: latLonToVector3(40.71, -74.00, radius),
-  sf: latLonToVector3(37.77, -122.41, radius),
-  tokyo: latLonToVector3(35.67, 139.65, radius),
-  sydney: latLonToVector3(-33.86, 151.20, radius),
-  dubai: latLonToVector3(25.20, 55.27, radius),
-  paris: latLonToVector3(48.85, 2.35, radius),
-  berlin: latLonToVector3(52.52, 13.40, radius),
-  singapore: latLonToVector3(1.35, 103.81, radius),
-  cairo: latLonToVector3(30.04, 31.23, radius),
-  capetown: latLonToVector3(-33.92, 18.42, radius),
-  rio: latLonToVector3(-22.90, -43.17, radius),
-  moscow: latLonToVector3(55.75, 37.61, radius),
-  la: latLonToVector3(34.05, -118.24, radius),
+  
+  // 欧洲市场
+  london: latLonToVector3(51.50, -0.12, radius),      // 伦敦
+  paris: latLonToVector3(48.85, 2.35, radius),        // 巴黎
+  berlin: latLonToVector3(52.52, 13.40, radius),      // 柏林
+  amsterdam: latLonToVector3(52.37, 4.89, radius),    // 阿姆斯特丹
+  rome: latLonToVector3(41.90, 12.49, radius),        // 罗马
+  madrid: latLonToVector3(40.42, -3.70, radius),      // 马德里
+  
+  // 东南亚市场
+  singapore: latLonToVector3(1.35, 103.81, radius),   // 新加坡
+  bangkok: latLonToVector3(13.75, 100.50, radius),    // 曼谷
+  jakarta: latLonToVector3(-6.21, 106.85, radius),    // 雅加达
+  manila: latLonToVector3(14.60, 120.98, radius),     // 马尼拉
+  kualalumpur: latLonToVector3(3.14, 101.69, radius), // 吉隆坡
+  hanoi: latLonToVector3(21.03, 105.85, radius),      // 河内
+  hochiminh: latLonToVector3(10.82, 106.63, radius),  // 胡志明市
 });
 
-// 导出贸易路线配置用于测试
+// 导出贸易路线配置用于测试 - 连接欧洲和东南亚市场
 export const getTradeRouteConnections = (): [string, string][] => [
-  ['nantong', 'sf'], ['nantong', 'ny'], 
-  ['nantong', 'london'], ['nantong', 'paris'],
-  ['nantong', 'tokyo'], ['nantong', 'singapore'], ['nantong', 'sydney'],
-  ['nantong', 'dubai'], ['nantong', 'beijing'],
-  ['ny', 'london'], ['la', 'tokyo'],
-  ['london', 'dubai'], ['dubai', 'singapore'],
+  // 南通到欧洲
+  ['nantong', 'london'], ['nantong', 'paris'], ['nantong', 'berlin'],
+  ['nantong', 'amsterdam'], ['nantong', 'rome'], ['nantong', 'madrid'],
+  
+  // 南通到东南亚
+  ['nantong', 'singapore'], ['nantong', 'bangkok'], ['nantong', 'jakarta'],
+  ['nantong', 'manila'], ['nantong', 'kualalumpur'], ['nantong', 'hanoi'],
+  ['nantong', 'hochiminh'],
+  
+  // 欧洲内部连接
+  ['london', 'paris'], ['paris', 'berlin'], ['berlin', 'amsterdam'],
+  
+  // 东南亚内部连接
+  ['singapore', 'bangkok'], ['singapore', 'jakarta'], ['bangkok', 'hanoi'],
 ];
 
 const Globe3D: React.FC = () => {

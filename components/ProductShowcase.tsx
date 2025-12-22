@@ -52,9 +52,9 @@ const ProductShowcase: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
           <div>
             <span className="text-blue-700 font-bold tracking-widest text-xs uppercase mb-3 block">
-              Curated Collection
+              Product Showcase
             </span>
-            <h2 className="text-4xl md:text-5xl text-slate-900 font-bold font-serif">珍品赏析</h2>
+            <h2 className="text-4xl md:text-5xl text-slate-900 font-bold font-serif">产品展示</h2>
           </div>
           <div className="w-full md:w-auto">
             <div className="relative">

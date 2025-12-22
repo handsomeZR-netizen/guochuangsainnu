@@ -76,7 +76,7 @@ const generateTransactionEvent = (): TransactionEvent => {
 // 价格对比数据 - 南通蓝印花布产品与竞品平台对比
 const priceComparisonData = [
   { platform: 'Amazon', price: 85, fullMark: 100 },
-  { platform: 'Etsy', price: 92, fullMark: 100 },
+  { platform: 'Shopee', price: 92, fullMark: 100 },
   { platform: 'eBay', price: 78, fullMark: 100 },
   { platform: '本平台', price: 68, fullMark: 100 },
 ];
@@ -273,7 +273,7 @@ const PriceComparisonChart = memo(() => {
         </div>
         <p className="text-xs text-slate-500 leading-relaxed">
           <span className="font-bold text-slate-800">价格优势：</span> 
-          本平台南通蓝印花布产品价格较Amazon低20%，较Etsy低26%，具有显著竞争优势。
+          本平台南通蓝印花布产品价格较Amazon低20%，较Shopee低26%，具有显著竞争优势。
         </p>
       </div>
     </div>

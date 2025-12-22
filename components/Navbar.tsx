@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, User, Info } from 'lucide-react';
 import { SectionId } from '../types';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import AboutUs from './AboutUs';
+import ShoppingCart from './ShoppingCart';
+import Login from './Login';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
   const { t } = useTranslation();
+
+  const handleLogin = (name: string) => {
+    setIsLoggedIn(true);
+    setUsername(name);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +61,12 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-10">
+          <button 
+            onClick={() => setIsAboutOpen(true)}
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif"
+          >
+            关于我们
+          </button>
           {[
             { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
             { id: SectionId.PRODUCTS, label: t('nav.products') },
@@ -61,10 +85,39 @@ const Navbar: React.FC = () => {
         {/* Actions */}
         <div className="hidden md:flex items-center gap-6">
           <LanguageSwitcher />
-          <button className="relative text-slate-600 hover:text-[#1e3a8a] transition-colors">
+          <button 
+            onClick={() => setIsCartOpen(true)}
+            className="relative text-slate-600 hover:text-[#1e3a8a] transition-colors"
+          >
             <ShoppingBag size={20} />
             <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#3b82f6] rounded-full"></span>
           </button>
+          {isLoggedIn ? (
+            <div className="relative group">
+              <button className="flex items-center gap-2 text-slate-600 hover:text-[#1e3a8a] transition-colors">
+                <User size={20} />
+                <span className="text-sm font-bold">{username}</span>
+              </button>
+              <div className="absolute right-0 top-full mt-2 bg-white shadow-lg rounded-lg py-2 w-40 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <button className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">个人中心</button>
+                <button className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm">我的订单</button>
+                <button 
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm text-red-600"
+                >
+                  退出登录
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button 
+              onClick={() => setIsLoginOpen(true)}
+              className="flex items-center gap-2 bg-[#1e3a8a] hover:bg-[#1e40af] text-white px-4 py-2 rounded-lg transition-colors text-sm font-bold"
+            >
+              <User size={18} />
+              登录
+            </button>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -76,7 +129,16 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-slate-50 border-t border-slate-200 py-4 px-6 flex flex-col gap-4 shadow-lg">
-           {[
+          <button 
+            onClick={() => {
+              setIsAboutOpen(true);
+              setIsMenuOpen(false);
+            }}
+            className="text-left text-slate-600 hover:text-[#1e3a8a] py-2 font-serif font-bold"
+          >
+            关于我们
+          </button>
+          {[
             { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
             { id: SectionId.PRODUCTS, label: t('nav.products') },
             { id: SectionId.AIGC, label: t('nav.aigc') },
@@ -89,11 +151,27 @@ const Navbar: React.FC = () => {
               {item.label}
             </button>
           ))}
-          <div className="pt-2 border-t border-slate-200">
+          <div className="pt-2 border-t border-slate-200 space-y-3">
             <LanguageSwitcher />
+            {!isLoggedIn && (
+              <button 
+                onClick={() => {
+                  setIsLoginOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="w-full bg-[#1e3a8a] text-white py-2 rounded-lg font-bold"
+              >
+                登录
+              </button>
+            )}
           </div>
         </div>
       )}
+
+      {/* Modals */}
+      <AboutUs isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+      <ShoppingCart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <Login isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={handleLogin} />
     </nav>
   );
 };

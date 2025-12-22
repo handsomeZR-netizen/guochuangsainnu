@@ -189,7 +189,7 @@ describe('DataDashboard Property-Based Tests', () => {
       fc.property(
         fc.array(
           fc.record({
-            platform: fc.constantFrom('Amazon', 'Etsy', 'eBay', '本平台'),
+            platform: fc.constantFrom('Amazon', 'Shopee', 'eBay', '本平台'),
             price: fc.integer({ min: 50, max: 100 }),
           }),
           { minLength: 3, maxLength: 4 }
@@ -206,7 +206,7 @@ describe('DataDashboard Property-Based Tests', () => {
           
           // Platform names should be valid
           priceData.forEach(item => {
-            expect(['Amazon', 'Etsy', 'eBay', '本平台']).toContain(item.platform);
+            expect(['Amazon', 'Shopee', 'eBay', '本平台']).toContain(item.platform);
           });
         }
       ),

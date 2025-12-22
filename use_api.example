@@ -24,3 +24,5 @@ curl -X POST https://ark.cn-beijing.volces.com/api/v3/images/generations \
     "stream": false,
     "watermark": true
 }'
+
+VITE_ARK_API_KEY=dd4005ed-548b-45bb-93be-e38b072818e5
