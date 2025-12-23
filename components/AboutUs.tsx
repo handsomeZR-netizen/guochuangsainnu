@@ -144,6 +144,18 @@ const AboutUs: React.FC<AboutUsProps> = ({ isOpen, onClose }) => {
       skills: ['SPSS', 'Stata', '政策研究', '供应链分析']
     },
     {
+      name: '徐子锐',
+      role: '技术开发工程师',
+      school: '南京师范大学计算机与电子信息学院/人工智能学院',
+      major: '2023级人工智能专业',
+      achievements: [
+        '国家级大学生创新创业项目负责人',
+        '全国新文科创新大赛铜奖',
+        '全球人工智能算法精英赛二等奖'
+      ],
+      skills: ['Web开发', 'Python', 'LLM', '人工智能']
+    },
+    {
       name: '陆衍锦',
       role: '技术总监',
       school: '南京师范大学商学院',
@@ -190,18 +202,6 @@ const AboutUs: React.FC<AboutUsProps> = ({ isOpen, onClose }) => {
         '数据网络核查及基础数据处理'
       ],
       skills: ['Office', 'SPSS', '市场调研', '数据处理']
-    },
-    {
-      name: '徐子锐',
-      role: '技术开发工程师',
-      school: '南京师范大学计算机与电子信息学院/人工智能学院',
-      major: '2023级人工智能专业',
-      achievements: [
-        '全国新文科创新大赛铜奖',
-        '全球人工智能算法精英赛二等奖',
-        '国家级大创项目负责人'
-      ],
-      skills: ['Web开发', 'Python', 'LLM', '人工智能']
     }
   ];
 
