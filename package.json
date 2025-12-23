@@ -6,11 +6,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node post-build-cleanup.js",
+    "build:dev": "vite build",
     "preview": "vite preview",
     "test": "vitest --run",
     "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "compress-images": "node compress-images.js",
+    "optimize": "node optimize-for-deployment.js",
+    "build:optimized": "npm run optimize && npm run build",
+    "deploy": "node deploy.js",
+    "deploy:skip-tests": "node deploy.js --skip-tests",
+    "deploy:quick": "node deploy.js --skip-tests --skip-optimize",
+    "perf-check": "node performance-check.js"
   },
   "dependencies": {
     "@google/genai": "^1.34.0",
@@ -42,6 +50,7 @@
     "fast-check": "^4.5.2",
     "jsdom": "^27.3.0",
     "postcss": "^8.5.6",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.18",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",

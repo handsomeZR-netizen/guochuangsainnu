@@ -146,7 +146,8 @@ const LoadingFallback: React.FC<{ height?: string }> = ({ height = 'h-96' }) => 
 
 // 首页组件
 const HomePage: React.FC = () => {
-  useInkTrailCanvas();
+  // 移除 useInkTrailCanvas，避免全屏 Canvas 覆盖层影响其他页面
+  // useInkTrailCanvas();
   
   return (
     <div className="min-h-screen flex flex-col relative">

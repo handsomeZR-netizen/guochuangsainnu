@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-12-23T08:40:38.003Z",
+  "imageOptimization": {
+    "enabled": true,
+    "originalSize": "22.65MB",
+    "compressedSize": "1.48MB",
+    "reduction": "93.5%",
+    "fileCount": 23
+  },
+  "environment": {
+    "useCompressedImages": true,
+    "nodeEnv": "production"
+  }
+}

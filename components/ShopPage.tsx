@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Grid3x3, List, ArrowLeft, Filter, X } from 'lucide-react';
 import Footer from './Footer';
 import ProductCard, { Product } from './ProductCard';
+import ProductDetailModal from './ProductDetailModal';
 
 interface Category {
   id: string;
@@ -36,7 +37,7 @@ const ShopPage: React.FC = () => {
       price: 89,
       currency: 'CNY',
       priceEur: 11.99,
-      image: '/images/shop-h1.jpg',
+      image: '/images-compressed/shop-h1.jpg',
       description: '这款蓝染奇趣盲盒专为亲子手作打造，将传统蓝染工艺转化为充满惊喜的盲盒玩法。盒内随机搭配天然靛蓝染料、纯棉布料、不同款式的绑扎工具，还藏有神秘的蓝印花布经典纹样模板，每一次开箱都是未知的乐趣。',
       craftDetails: '天然靛蓝染料 · 纯棉布料 · 传统蓝染工艺',
       priceStatus: '🎁 亲子体验',
@@ -50,7 +51,7 @@ const ShopPage: React.FC = () => {
       price: 69,
       currency: 'CNY',
       priceEur: 9.49,
-      image: '/images/shop-h2.jpg',
+      image: '/images-compressed/shop-h2.jpg',
       description: '以蓝印花布经典纹样为灵感，打造专属亲子的趣味拼豆创意盒。盒内包含不同色系的拼豆、模板、熨烫纸、镊子等工具，图案涵盖缠枝莲、云纹、小蓝花等国风元素。',
       craftDetails: '蓝印花布纹样设计 · 完整工具套装 · 国风元素',
       priceStatus: '🎨 创意手工',
@@ -64,7 +65,7 @@ const ShopPage: React.FC = () => {
       price: 79,
       currency: 'CNY',
       priceEur: 10.99,
-      image: '/images/shop-h3.jpg',
+      image: '/images-compressed/shop-h3.jpg',
       description: '这款3D立体拼图取材于蓝印花布的经典应用场景，如江南水乡的乌篷船等，将国风美学与益智拼装相结合。拼图零件边缘光滑、咬合紧密，家长和孩子可以分工协作。',
       craftDetails: '江南水乡场景 · 精密咬合 · 立体拼装',
       priceStatus: '🧩 益智拼装',
@@ -78,7 +79,7 @@ const ShopPage: React.FC = () => {
       price: 128,
       currency: 'CNY',
       priceEur: 16.99,
-      image: '/images/shop-h4.jpg',
+      image: '/images-compressed/shop-h4.jpg',
       description: '集织布与扎染两大传统手工艺于一体的亲子体验套装，专为儿童设计迷你织布机，搭配纯棉纱线、靛蓝染料、绑扎绳等材料。',
       craftDetails: '迷你织布机 · 天然靛蓝染料 · 传统手工艺',
       priceStatus: '🧵 织染体验',
@@ -92,7 +93,7 @@ const ShopPage: React.FC = () => {
       price: 109,
       currency: 'CNY',
       priceEur: 14.49,
-      image: '/images/shop-h5.jpg',
+      image: '/images-compressed/shop-h5.jpg',
       description: '这款手编团扇包是亲子手作的创意之选，将手编工艺与蓝印花布元素巧妙融合。套装内含编织线材、蓝印花布贴片、团扇骨架、针线等材料，教程详细易懂。',
       craftDetails: '手编工艺 · 蓝印花布贴片 · 实用装饰两用',
       priceStatus: '🪭 创意手编',
@@ -108,7 +109,7 @@ const ShopPage: React.FC = () => {
       price: 124,
       currency: 'CNY',
       priceEur: 17.9,
-      image: '/images/shop-b1.jpg',
+      image: '/images-compressed/shop-b1.jpg',
       description: '采用纯棉蓝印花布材质，纹样为"缠枝莲""宝相花"等吉祥纹样，尺寸适配8人桌、10人桌等常规宴席桌型，边缘做流苏或锁边处理。',
       craftDetails: '纯棉蓝印花布 · 吉祥纹样 · 流苏锁边',
       priceStatus: '🎊 宴席装饰',
@@ -122,7 +123,7 @@ const ShopPage: React.FC = () => {
       price: 44,
       currency: 'CNY',
       priceEur: 6.35,
-      image: '/images/shop-b2.jpg',
+      image: '/images-compressed/shop-b2.jpg',
       description: '底座为实木材质，正面嵌入蓝印花布贴片，贴片纹样为"小团花""回纹"，席位卡标注宾客姓名，桌号牌为靛蓝底色+白色纹样数字。',
       craftDetails: '实木底座 · 蓝印花布贴片 · 精致工艺',
       priceStatus: '🏷️ 席位标识',
@@ -136,7 +137,7 @@ const ShopPage: React.FC = () => {
       price: 29,
       currency: 'CNY',
       priceEur: 4.15,
-      image: '/images/shop-b3.jpg',
+      image: '/images-compressed/shop-b3.jpg',
       description: '圆形小餐垫，材质为防水棉麻蓝印花布，纹样为"缠枝纹""卷草纹"，放置于餐盘底部，起装饰与防烫作用。',
       craftDetails: '防水棉麻 · 缠枝纹样 · 装饰防烫',
       priceStatus: '🍽️ 餐桌装饰',
@@ -150,7 +151,7 @@ const ShopPage: React.FC = () => {
       price: 279,
       currency: 'CNY',
       priceEur: 40,
-      image: '/images/shop-b4.jpg',
+      image: '/images-compressed/shop-b4.jpg',
       description: '含餐盘、汤碗、茶杯等，表面采用釉下彩工艺印制"冰裂纹""缠枝莲"等蓝印花布经典纹样，色调为靛蓝与米白搭配。',
       craftDetails: '釉下彩工艺 · 经典纹样 · 靛蓝米白',
       priceStatus: '🍴 餐具套装',
@@ -164,7 +165,7 @@ const ShopPage: React.FC = () => {
       price: 349,
       currency: 'CNY',
       priceEur: 50.1,
-      image: '/images/shop-b5.jpg',
+      image: '/images-compressed/shop-b5.jpg',
       description: '主体为蓝印花布包裹硬纸盒，盒面印"喜""福"纹样与祥云纹组合，内部搭配蓝印花布周边小产品（纹样手帕、香包、茶杯垫等）+当地特色美食。',
       craftDetails: '蓝印花布包裹 · 喜福纹样 · 特色美食',
       priceStatus: '🎁 伴手礼',
@@ -180,7 +181,7 @@ const ShopPage: React.FC = () => {
       price: 268,
       currency: 'CNY',
       priceEur: 39.99,
-      image: '/images/shop-d1.jpg',
+      image: '/images-compressed/shop-d1.jpg',
       description: '青花与蓝印花布意境呼应，瓷质餐具釉色清润，盘身浅绘山水纹理。器型简约趁手，盛餐时既衬食物色泽，又藏着中式美学的含蓄韵致。',
       craftDetails: '青花瓷质 · 山水纹理 · 中式美学',
       priceStatus: '🍽️ 餐桌雅致',
@@ -194,7 +195,7 @@ const ShopPage: React.FC = () => {
       price: 98,
       currency: 'CNY',
       priceEur: 14.99,
-      image: '/images/shop-d2.jpg',
+      image: '/images-compressed/shop-d2.jpg',
       description: '以蓝印花布为料，白底晕染清雅荷纹，靛蓝底色衬出中式禅意。适配浅灰布艺沙发，触感柔糯透气，既添空间国风层次，又能舒缓倚靠时的腰背压力。',
       craftDetails: '蓝印花布 · 荷纹设计 · 柔糯透气',
       priceStatus: '🛋️ 舒适禅意',
@@ -208,7 +209,7 @@ const ShopPage: React.FC = () => {
       price: 428,
       currency: 'CNY',
       priceEur: 64.99,
-      image: '/images/shop-d3.jpg',
+      image: '/images-compressed/shop-d3.jpg',
       description: '青蓝调蓝印花布床品，浅纹竹枝舒展于素净面料上，质感亲肤垂顺。搭配木质床具，铺展后满是清雅国风氛围，睡感柔软透气。',
       craftDetails: '青蓝调 · 竹枝纹样 · 亲肤垂顺',
       priceStatus: '🛏️ 清雅寝居',
@@ -222,7 +223,7 @@ const ShopPage: React.FC = () => {
       price: 298,
       currency: 'CNY',
       priceEur: 44.99,
-      image: '/images/shop-d4.jpg',
+      image: '/images-compressed/shop-d4.jpg',
       description: '蓝染花绫质地的蓝印花布窗帘，清雅花纹晕染其上，透光时光影朦胧如江南烟雨。挂于木格窗前，既柔化强光又保隐私，风吹帘动时，古韵与温柔裹满空间。',
       craftDetails: '蓝染花绫 · 清雅花纹 · 江南烟雨',
       priceStatus: '🪟 诗意软装',
@@ -236,7 +237,7 @@ const ShopPage: React.FC = () => {
       price: 35,
       currency: 'CNY',
       priceEur: 8.99,
-      image: '/images/shop-d5.jpg',
+      image: '/images-compressed/shop-d5.jpg',
       description: '以传统国风蓝白花卉纹为设计，采用透气耐磨的棉麻面料，大容量可收纳衣物、杂物，搭配编织手提绳方便移动，既是整理利器，也能作为国风家居装饰。',
       craftDetails: '棉麻面料 · 花卉纹样 · 大容量',
       priceStatus: '🧺 实用收纳',
@@ -250,7 +251,7 @@ const ShopPage: React.FC = () => {
       price: 189,
       currency: 'CNY',
       priceEur: 29.99,
-      image: '/images/shop-d6.jpg',
+      image: '/images-compressed/shop-d6.jpg',
       description: '精选天然实木框架，搭配传统蓝白缠枝纹印花布艺灯罩，复古国风韵味十足。暖光透过透气面料柔和散射，不刺眼更护目，适配卧室、书房或茶室场景。',
       craftDetails: '天然实木 · 缠枝纹灯罩 · 暖光护目',
       priceStatus: '💡 国风照明',
@@ -264,7 +265,7 @@ const ShopPage: React.FC = () => {
       price: 399,
       currency: 'CNY',
       priceEur: 59.99,
-      image: '/images/shop-d7.jpg',
+      image: '/images-compressed/shop-d7.jpg',
       description: '采用实木榫卯骨架+双层蓝印花布面板，印花选取经典莲纹/云纹，蓝白相映尽显东方雅致。可折叠设计方便收纳，既能划分空间、遮挡隐私，又能为客厅、茶室增添国风氛围。',
       craftDetails: '实木榫卯 · 莲纹云纹 · 可折叠',
       priceStatus: '🪞 东方雅致',
@@ -278,7 +279,7 @@ const ShopPage: React.FC = () => {
       price: 45,
       currency: 'CNY',
       priceEur: 9.99,
-      image: '/images/shop-d8.jpg',
+      image: '/images-compressed/shop-d8.jpg',
       description: '以实木为底座，包裹传统蓝白缠枝莲纹印花布艺，国风清雅韵味扑面而来。筒身尺寸适配日常笔、便签等桌面小物，摆于书桌、茶桌既能规整文具，又能成为中式软装的精巧点缀。',
       craftDetails: '实木底座 · 缠枝莲纹 · 桌面收纳',
       priceStatus: '✏️ 文房雅器',
@@ -292,7 +293,7 @@ const ShopPage: React.FC = () => {
       price: 45,
       currency: 'CNY',
       priceEur: 9.99,
-      image: '/images/shop-d9.jpg',
+      image: '/images-compressed/shop-d9.jpg',
       description: '选用防滑橡胶底+棉麻蓝印花布面，触感亲肤耐磨，印花选取传统团花缠枝纹，蓝白清雅尽显国风韵味。尺寸适配常规鼠标操作，办公、游戏场景均适用。',
       craftDetails: '防滑橡胶底 · 团花纹样 · 亲肤耐磨',
       priceStatus: '🖱️ 桌面雅致',
@@ -306,7 +307,7 @@ const ShopPage: React.FC = () => {
       price: 99,
       currency: 'CNY',
       priceEur: 16.99,
-      image: '/images/shop-d10.jpg',
+      image: '/images-compressed/shop-d10.jpg',
       description: '萃取传统蓝印花布经典纹样（缠枝莲、云纹），采用环保无纺布基材+防水耐磨印花层，蓝白清雅自带东方禅意。质感温润不反光，易铺贴易打理，适配客厅背景墙、卧室、茶室等空间。',
       craftDetails: '环保无纺布 · 防水耐磨 · 经典纹样',
       priceStatus: '🎨 空间氛围',
@@ -478,13 +479,14 @@ const ShopPage: React.FC = () => {
             <div className={
               viewMode === 'grid'
                 ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6'
-                : 'space-y-4'
+                : 'space-y-3'
             }>
               {filteredProducts.map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
                   onViewDetail={handleViewDetail}
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -501,6 +503,16 @@ const ShopPage: React.FC = () => {
       
       {/* Footer */}
       <Footer />
+
+      {/* Product Detail Modal */}
+      {selectedProduct && (
+        <ProductDetailModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          relatedProducts={products.filter(p => p.category === selectedProduct.category && p.id !== selectedProduct.id)}
+          onViewRelated={(product) => setSelectedProduct(product)}
+        />
+      )}
     </div>
   );
 };

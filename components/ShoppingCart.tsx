@@ -26,7 +26,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ isOpen, onClose }) => {
       nameEn: 'Blue & White Porcelain Vase',
       price: 1250,
       currency: 'USD',
-      image: '/images/product-1.jpg',
+      image: '/images-compressed/product-1.jpg',
       quantity: 1
     }
   ]);

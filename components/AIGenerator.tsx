@@ -599,7 +599,7 @@ const AIGenerator: React.FC = () => {
           {/* Content Area */}
           <div className="w-full lg:w-3/4 bg-slate-50 border border-slate-200 p-4 sm:p-8 relative flex flex-col overflow-hidden flex-1">
             {/* History Toggle Button */}
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-10">
+            <div className="flex justify-end mb-2 flex-shrink-0">
               <button
                 onClick={() => setShowHistory(!showHistory)}
                 className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-white border border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-800 transition-colors text-xs sm:text-sm"

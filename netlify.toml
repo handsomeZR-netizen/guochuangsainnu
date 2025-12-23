@@ -1,8 +1,8 @@
 # Netlify 部署配置文件
 
 [build]
-  # 构建命令
-  command = "npm run build"
+  # 构建命令 - 使用优化构建
+  command = "npm run build:optimized"
   
   # 构建输出目录
   publish = "dist"

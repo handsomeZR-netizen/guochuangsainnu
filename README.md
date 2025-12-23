@@ -111,9 +111,52 @@ npm run dev
 ### 构建生产版本
 
 ```bash
+# 标准构建
 npm run build
+
+# 优化构建（推荐用于部署）
+npm run build:optimized
+
+# 预览构建结果
 npm run preview
 ```
+
+### 🚀 部署优化
+
+本项目已进行全面的部署优化，确保在Netlify等平台上的高效部署：
+
+#### 图片优化
+- **压缩比例**: 93.5% (22.65MB → 1.48MB)
+- **智能加载**: 生产环境自动使用压缩图片
+- **懒加载**: 提升页面加载速度
+
+#### 一键部署
+```bash
+# 完整部署流程（推荐）
+npm run deploy
+
+# 跳过测试的快速部署
+npm run deploy:skip-tests
+
+# 最快部署（跳过测试和优化）
+npm run deploy:quick
+```
+
+#### 手动优化步骤
+```bash
+# 1. 压缩图片
+npm run compress-images
+
+# 2. 优化配置
+npm run optimize
+
+# 3. 构建项目
+npm run build
+```
+
+详细的部署优化指南请查看：
+- 📖 [DEPLOYMENT_OPTIMIZATION_GUIDE.md](./DEPLOYMENT_OPTIMIZATION_GUIDE.md) - 完整优化指南
+- 📊 [DEPLOYMENT_SUMMARY.md](./DEPLOYMENT_SUMMARY.md) - 优化效果总结
 
 ### 运行测试
 
