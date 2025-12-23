@@ -2,9 +2,47 @@ import React, { useState, useEffect, useRef } from 'react';
 import { SectionId } from '../types';
 import { deepseekService, DeepSeekError, RecommendationResult } from '../services/deepseekService';
 import { doubaoService, DoubaoError } from '../services/doubaoService';
-import { Sparkles, Image as ImageIcon, MessageSquare, Loader2, Upload, Home, History, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, MessageSquare, Loader2, Upload, Home, History, Trash2, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react';
 
 type AIMode = 'pattern-explanation' | 'image-generation' | 'room-analysis';
+
+// 示例案例数据
+const PATTERN_EXAMPLES = [
+  '五福捧寿',
+  '松鹤长春',
+  '喜鹊登梅',
+  '鱼跃龙门',
+  '凤穿牡丹',
+  '麒麟送子',
+  '连年有余',
+  '富贵平安',
+  '龙凤呈祥',
+  '花开富贵',
+  '吉祥如意',
+  '福禄寿喜'
+];
+
+const IMAGE_EXAMPLES = [
+  '缠枝莲纹',
+  '冰裂纹',
+  '回纹',
+  '云纹',
+  '水波纹',
+  '如意纹',
+  '卷草纹',
+  '锦地纹',
+  '万字纹',
+  '寿字纹'
+];
+
+const ROOM_EXAMPLES = [
+  '我有一个30平米的现代简约客厅，灰白色调，采光良好，想要添加一些传统文化元素',
+  '卧室面积20平米，北欧风格，以木色和白色为主，希望增加温馨感',
+  '书房15平米，新中式风格，深色实木家具，需要营造宁静的阅读氛围',
+  '茶室25平米，日式禅意风格，榻榻米和原木色，想要体现东方美学',
+  '餐厅18平米，轻奢风格，大理石餐桌，希望增添艺术气息',
+  '玄关10平米，现代中式，想要第一眼就能感受到文化底蕴'
+];
 
 interface AIResult {
   text?: string;
@@ -91,6 +129,24 @@ const AIGenerator: React.FC = () => {
   
   // 滚动引用
   const resultRef = useRef<HTMLDivElement>(null);
+
+  // 获取随机示例
+  const getRandomExample = (examples: string[]) => {
+    return examples[Math.floor(Math.random() * examples.length)];
+  };
+
+  // 刷新示例
+  const refreshPatternExample = () => {
+    setPatternName(getRandomExample(PATTERN_EXAMPLES));
+  };
+
+  const refreshImageExample = () => {
+    setImagePatternName(getRandomExample(IMAGE_EXAMPLES));
+  };
+
+  const refreshRoomExample = () => {
+    setRoomDescription(getRandomExample(ROOM_EXAMPLES));
+  };
 
   // 加载历史记录
   useEffect(() => {
@@ -574,7 +630,7 @@ const AIGenerator: React.FC = () => {
               <div className="flex-1 flex flex-col overflow-hidden">
                 <div className="mb-4 flex-shrink-0">
                   <label className="block text-sm font-bold text-slate-700 mb-2">输入纹样名称</label>
-                  <div className="flex gap-2 mb-4">
+                  <div className="flex gap-2 mb-2">
                     <input 
                       type="text" 
                       value={patternName}
@@ -583,6 +639,14 @@ const AIGenerator: React.FC = () => {
                       className="flex-grow bg-white border border-slate-300 p-3 focus:outline-none focus:border-blue-800 text-slate-800"
                       onKeyPress={(e) => e.key === 'Enter' && handlePatternExplanation()}
                     />
+                    <button
+                      onClick={refreshPatternExample}
+                      className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-blue-700 hover:text-white hover:bg-blue-700 border border-blue-300 hover:border-blue-700 transition-all whitespace-nowrap"
+                      title="随机示例"
+                    >
+                      <RefreshCw size={14} />
+                      <span className="hidden sm:inline">换一个</span>
+                    </button>
                     <button 
                       onClick={handlePatternExplanation}
                       disabled={isLoading || !patternName.trim()}
@@ -647,15 +711,23 @@ const AIGenerator: React.FC = () => {
               <div className="flex-1 flex flex-col overflow-hidden">
                 <div className="mb-4 flex-shrink-0">
                   <label className="block text-sm font-bold text-slate-700 mb-2">输入纹样名称</label>
-                  <div className="flex gap-2 mb-4">
+                  <div className="flex gap-2 mb-2">
                     <input 
                       type="text" 
                       value={imagePatternName}
                       onChange={(e) => setImagePatternName(e.target.value)}
-                      placeholder="例如：五福捧寿、松鹤长春..." 
+                      placeholder="例如：缠枝莲纹、冰裂纹..." 
                       className="flex-grow bg-white border border-slate-300 p-3 focus:outline-none focus:border-blue-800 text-slate-800"
                       onKeyPress={(e) => e.key === 'Enter' && handleImageGeneration()}
                     />
+                    <button
+                      onClick={refreshImageExample}
+                      className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-blue-700 hover:text-white hover:bg-blue-700 border border-blue-300 hover:border-blue-700 transition-all whitespace-nowrap"
+                      title="随机示例"
+                    >
+                      <RefreshCw size={14} />
+                      <span className="hidden sm:inline">换一个</span>
+                    </button>
                     <button 
                       onClick={handleImageGeneration}
                       disabled={isLoading || !imagePatternName.trim()}
@@ -736,7 +808,17 @@ const AIGenerator: React.FC = () => {
             {activeMode === 'room-analysis' && (
               <div className="flex-1 flex flex-col overflow-hidden">
                 <div className="mb-4 flex-shrink-0">
-                  <label className="block text-sm font-bold text-slate-700 mb-2">描述您的房间</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-bold text-slate-700">描述您的房间</label>
+                    <button
+                      onClick={refreshRoomExample}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-blue-700 hover:text-white hover:bg-blue-700 border border-blue-300 hover:border-blue-700 transition-all whitespace-nowrap"
+                      title="随机示例"
+                    >
+                      <RefreshCw size={14} />
+                      <span>换一个</span>
+                    </button>
+                  </div>
                   <div className="flex gap-2 mb-4">
                     <textarea 
                       value={roomDescription}

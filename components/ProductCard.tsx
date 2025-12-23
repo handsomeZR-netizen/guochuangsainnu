@@ -7,6 +7,7 @@ export interface Product {
   nameEn: string;
   price: number;
   currency: string;
+  priceEur?: number;
   image: string;
   description: string;
   craftDetails: string;
@@ -91,10 +92,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetail, onAddT
           <p className="text-xs sm:text-sm text-slate-500 italic mb-2 sm:mb-3">{product.nameEn}</p>
           
           <div className="flex items-center justify-between flex-wrap gap-2">
-            <p className="text-xl sm:text-2xl font-bold text-blue-900">
-              <span className="text-xs sm:text-sm font-normal text-slate-500 mr-1">{product.currency}</span>
-              {product.price}
-            </p>
+            <div>
+              <p className="text-xl sm:text-2xl font-bold text-blue-900">
+                <span className="text-xs sm:text-sm font-normal text-slate-500 mr-1">¥</span>
+                {product.price}
+              </p>
+              {product.priceEur && (
+                <p className="text-xs text-slate-500 mt-1">
+                  € {product.priceEur}
+                </p>
+              )}
+            </div>
             <div className="flex gap-1 flex-wrap">
               {product.tags.map((tag, idx) => (
                 <span

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X, ShoppingBag, User, Info, Store } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, ShoppingBag, User, Info, Store, BarChart3, Package, Sparkles } from 'lucide-react';
 import { SectionId } from '../types';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -17,6 +17,10 @@ const Navbar: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // 在购物中心页面隐藏导航栏
+  const isShopPage = location.pathname === '/shop';
 
   const handleLogin = (name: string) => {
     setIsLoggedIn(true);
@@ -44,6 +48,11 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // 如果在购物中心页面，不渲染导航栏
+  if (isShopPage) {
+    return null;
+  }
+
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-slate-50/95 backdrop-blur-md shadow-md py-3' : 'bg-slate-50/80 backdrop-blur-sm py-5'}`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
@@ -64,30 +73,39 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center gap-10">
           <button 
             onClick={() => setIsAboutOpen(true)}
-            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif"
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1.5"
           >
+            <Info size={16} />
             关于我们
           </button>
           <Link 
             to="/shop"
-            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1"
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1.5"
           >
             <Store size={16} />
             购物中心
           </Link>
-          {[
-            { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
-            { id: SectionId.PRODUCTS, label: t('nav.products') },
-            { id: SectionId.AIGC, label: t('nav.aigc') },
-          ].map((item) => (
-            <button 
-              key={item.id} 
-              onClick={() => scrollTo(item.id)}
-              className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif"
-            >
-              {item.label}
-            </button>
-          ))}
+          <button 
+            onClick={() => scrollTo(SectionId.DASHBOARD)}
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1.5"
+          >
+            <BarChart3 size={16} />
+            {t('nav.dashboard')}
+          </button>
+          <button 
+            onClick={() => scrollTo(SectionId.PRODUCTS)}
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1.5"
+          >
+            <Package size={16} />
+            {t('nav.products')}
+          </button>
+          <button 
+            onClick={() => scrollTo(SectionId.AIGC)}
+            className="text-slate-600 hover:text-[#1e3a8a] transition-colors text-sm font-bold tracking-widest font-serif flex items-center gap-1.5"
+          >
+            <Sparkles size={16} />
+            {t('nav.aigc')}
+          </button>
         </div>
 
         {/* Actions */}
@@ -142,8 +160,9 @@ const Navbar: React.FC = () => {
               setIsAboutOpen(true);
               setIsMenuOpen(false);
             }}
-            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors"
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors flex items-center gap-2"
           >
+            <Info size={16} />
             关于我们
           </button>
           <Link 
@@ -154,19 +173,27 @@ const Navbar: React.FC = () => {
             <Store size={16} />
             购物中心
           </Link>
-          {[
-            { id: SectionId.DASHBOARD, label: t('nav.dashboard') },
-            { id: SectionId.PRODUCTS, label: t('nav.products') },
-            { id: SectionId.AIGC, label: t('nav.aigc') },
-          ].map((item) => (
-            <button 
-              key={item.id} 
-              onClick={() => scrollTo(item.id)}
-              className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors"
-            >
-              {item.label}
-            </button>
-          ))}
+          <button 
+            onClick={() => scrollTo(SectionId.DASHBOARD)}
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors flex items-center gap-2"
+          >
+            <BarChart3 size={16} />
+            {t('nav.dashboard')}
+          </button>
+          <button 
+            onClick={() => scrollTo(SectionId.PRODUCTS)}
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors flex items-center gap-2"
+          >
+            <Package size={16} />
+            {t('nav.products')}
+          </button>
+          <button 
+            onClick={() => scrollTo(SectionId.AIGC)}
+            className="text-left text-slate-600 hover:text-[#1e3a8a] hover:bg-blue-50 py-3 px-3 font-serif font-bold rounded-lg transition-colors flex items-center gap-2"
+          >
+            <Sparkles size={16} />
+            {t('nav.aigc')}
+          </button>
           <div className="pt-3 mt-2 border-t border-slate-200 space-y-3">
             <div className="flex items-center justify-between px-3">
               <span className="text-sm text-slate-500">语言</span>
