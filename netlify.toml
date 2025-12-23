@@ -2,7 +2,7 @@
 
 [build]
   # 构建命令 - 使用优化构建
-  command = "npm run build:optimized"
+  command = "npm run build"
   
   # 构建输出目录
   publish = "dist"
