@@ -33,3 +33,7 @@ generated-images.json
 generate-product-images.js
 download-images.js
 shop-images.json
+travel-images.json
+
+# Documentation (PPT drafts, internal docs)
+doc/
