@@ -1,4 +1,34 @@
-# 墨韵智汇：南通蓝印花布全球活化方案
+# Nnu Innovation Training Platform
+
+<!-- PORTFOLIO-SNAPSHOT:START -->
+<p align="left">
+  <img src="https://img.shields.io/badge/category-Frontend%20or%20full--stack%20web%20project-blue" alt="Category" />
+  <img src="https://img.shields.io/badge/status-Public%20portfolio%20artifact-2ea44f" alt="Status" />
+</p>
+
+> Innovation training project web platform with TypeScript frontend, deployment automation, image optimization, and Netlify notes.
+
+## Project Snapshot
+
+- Category: Frontend or full-stack web project
+- Stack: TypeScript, innovation-training, netlify, student-projects, typescript, vite
+- Status: Public portfolio artifact
+
+## What This Demonstrates
+
+- Presents the project with a clear purpose, technology stack, and review path.
+- Demonstrates frontend delivery, deployment awareness, and user-facing product structure.
+- Keeps implementation details and usage notes close to the code for easier reuse.
+
+## Quick Start
+
+```bash
+npm install && npm run build
+```
+
+<!-- PORTFOLIO-SNAPSHOT:END -->
+
+## Original Documentation
 
 <div align="center">
 
